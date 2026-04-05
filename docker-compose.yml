@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mtproxy:
+    build: .
+    container_name: mtproxy
+    restart: always
+    ports:
+      - "443:443/tcp"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    volumes:
+      - mtproxy-data:/data
+    environment:
+      - SECRET=${SECRET}
+      - WORKERS=${WORKERS:-2}
+
+volumes:
+  mtproxy-data:
